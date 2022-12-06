@@ -27,11 +27,12 @@ app.use("/catalog", catalogRouter); // Add catalog routes to middleware chain.
 
 // Set up mongoose connection
 const mongoose = require("mongoose");
-const mongoDB = "mongodb+srv://moriahowens:clementine@cluster0.lyuzcnk.mongodb.net/local_library?retryWrites=true&w=majority";
+const dev_db_url = "mongodb+srv://moriahowens:clementine@cluster0.lyuzcnk.mongodb.net/local_library?retryWrites=true&w=majority";
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
-
+ 
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
